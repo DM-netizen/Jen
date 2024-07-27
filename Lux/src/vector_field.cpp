@@ -179,8 +179,8 @@ void vf_tools::kaleidoscope(    const vec2f& center,
                                 float segments,                // Number of segments in kaleidoscope
                                 float offset_angle,            // Beginning of first segment in degrees
                                 float spin_angle,
-                                bool reflect,                  // Reflect alternate segments
-                                const std::function<float(float)>& func) {               
+                                bool reflect,      const std::function<float(float)>& func            // Reflect alternate segments
+                                ) {               
     std::cout << "vf_tools::kaleidoscope: segments = " << segments << std::endl;
     if( segments != 0.0f ) {
         position_fill();
