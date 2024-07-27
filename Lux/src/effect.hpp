@@ -76,41 +76,16 @@ template< class T > struct eff_invert {
 typedef eff_invert< frgb > eff_invert_frgb;
 typedef eff_invert< ucolor > eff_invert_ucolor;
 
-template< class T > struct eff_rotate_components {
+template< class T > struct eff_rotate_colors {
     harness< int > r;
 
     void operator () ( any_buffer_pair_ptr& buf, element_context& context );
 
-    eff_rotate_components( int r_init = 0 ) : r( r_init ) {}
+    eff_rotate_colors( int r_init = 0 ) : r( r_init ) {}
 };
 
-typedef eff_rotate_components< frgb > eff_rotate_components_frgb;
-typedef eff_rotate_components< ucolor > eff_rotate_components_ucolor;
-
-template< class T > struct eff_rgb_to_hsv {
-    void operator () ( any_buffer_pair_ptr& buf, element_context& context );
-};
-
-typedef eff_rgb_to_hsv< frgb > eff_rgb_to_hsv_frgb;
-typedef eff_rgb_to_hsv< ucolor > eff_rgb_to_hsv_ucolor;
-
-template< class T > struct eff_hsv_to_rgb {
-    void operator () ( any_buffer_pair_ptr& buf, element_context& context );
-};
-
-typedef eff_hsv_to_rgb< frgb > eff_hsv_to_rgb_frgb;
-typedef eff_hsv_to_rgb< ucolor > eff_hsv_to_rgb_ucolor;
-
-template< class T > struct eff_rotate_hue {
-    harness< float > offset;
-
-    void operator () ( any_buffer_pair_ptr& buf, element_context& context );
-
-    eff_rotate_hue( float offset_init = 0.0f ) : offset( offset_init ) {}
-};
-
-typedef eff_rotate_hue< frgb > eff_rotate_hue_frgb;
-typedef eff_rotate_hue< ucolor > eff_rotate_hue_ucolor;
+typedef eff_rotate_colors< frgb > eff_rotate_colors_frgb;
+typedef eff_rotate_colors< ucolor > eff_rotate_colors_ucolor;
 
 template< class T > struct eff_crop_circle {
     harness< T > background;
@@ -333,6 +308,16 @@ template< class T > struct eff_spiral {
 
 typedef eff_spiral< vec2f > eff_spiral_vec2f;
 
+template< class T > struct eff_fermat_spiral {
+    harness< float > c;
+
+    void operator () ( any_buffer_pair_ptr& buf, element_context& context );
+
+    eff_fermat_spiral(float const_init = 0.0f ) : c( const_init ){}
+};
+
+typedef eff_fermat_spiral< vec2f > eff_fermat_spiral_vec2f;
+
 template< class T > struct eff_vortex {
     harness< float > diameter;   // float - Overall size of vortex
     harness< float > soften;     // float - Avoids a singularity in the center of vortex
@@ -415,19 +400,13 @@ template< class T > struct eff_kaleidoscope {
     harness< float > offset_angle;
     harness< float > spin_angle;
     harness< bool >  reflect;
-    any_fn< float > swirl_fn;
 
     bool filled;
 
     void operator () ( any_buffer_pair_ptr& buf, element_context& context );
 
-<<<<<<< HEAD
     eff_kaleidoscope( vec2f center_init = vec2f( 0.0f, 0.0f ), float segments_init = 6.0f, float offset_angle_init = 0.0f, float spin_angle_init = 0.0f, bool reflect_init = true) : 
         center( center_init ), segments( segments_init ), offset_angle( offset_angle_init ), spin_angle( spin_angle_init ), reflect( reflect_init ), filled( false )  {}
-=======
-    eff_kaleidoscope( vec2f center_init = vec2f( 0.0f, 0.0f ), float segments_init = 12.0f, float offset_angle_init = 0.0f, float spin_angle_init = 0.0f, bool reflect_init = true ) : 
-        center( center_init ), segments( segments_init ), offset_angle( offset_angle_init ), spin_angle( spin_angle_init ), reflect( reflect_init ), filled( false ) {}
->>>>>>> 684f95f6d7f98eb0842a97ad09ee4320480f06b7
 };
 
 typedef eff_kaleidoscope< vec2f > eff_kaleidoscope_vec2f;
